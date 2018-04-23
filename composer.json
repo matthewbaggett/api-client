@@ -1,5 +1,5 @@
 {
-    "name": "mangati/api-client",
+    "name": "swarm.sh/api-client",
     "description": "Generic JSON restful API client written in PHP.",
     "type": "library",
     "license": "MIT",
