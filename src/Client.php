@@ -20,6 +20,8 @@ class Client
      */
     private $session;
 
+    private $apiWaitTime = 0;
+
     public function __construct(string $endpoint)
     {
         $this->session  = new Session();
@@ -34,11 +36,18 @@ class Client
         }
     }
 
+    public function getApiTime()
+    {
+        return $this->apiWaitTime;
+    }
+
     public function request(string $method, string $path, array $data = [], array $headers = []): array
     {
         $url = "{$this->endpoint}/$path";
         $this->request = new Request();
+        $start = microtime(true);
         $response = $this->request->do($method, $url, $data, $headers);
+        $this->apiWaitTime+= microtime(true) - $start;
 
         return $response;
     }
