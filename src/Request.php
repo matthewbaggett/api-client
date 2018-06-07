@@ -56,6 +56,8 @@ class Request
                 }
             }
         } else {
+            !\Kint::dump($url, $method, $response, $httpCode, $headers);
+            exit;
             throw new Exception($response, $httpCode);
         }
 

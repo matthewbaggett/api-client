@@ -39,7 +39,7 @@ class Path
      */
     public function getAll(array $query = []): array
     {
-        return $this->request->do('GET', $this->baseUrl, $query, $this->client->session()->headers);
+        return $this->client->request('GET', $this->baseUrl, $query, $this->client->session()->headers);
     }
 
     /**
@@ -49,7 +49,7 @@ class Path
      */
     public function get($id): array
     {
-        return $this->request->do('GET', "{$this->baseUrl}/{$id}", [], $this->client->session()->headers);
+        return $this->client->request('GET', "{$this->baseUrl}/{$id}", [], $this->client->session()->headers);
     }
 
     /**
@@ -61,7 +61,7 @@ class Path
     {
         $url = $this->generateUrl($this->baseUrl, $query);
         
-        return $this->request->do('POST', $url, $data, $this->client->session()->headers);
+        return $this->client->request('POST', $url, $data, $this->client->session()->headers);
     }
 
     /**
@@ -74,7 +74,7 @@ class Path
     {
         $url = $this->generateUrl("{$this->baseUrl}/{$id}", $query);
         
-        return $this->request->do('PUT', $url, $data, $this->client->session()->headers);
+        return $this->client->request('PUT', $url, $data, $this->client->session()->headers);
     }
 
     /**
@@ -86,7 +86,7 @@ class Path
     {
         $url = $this->generateUrl("{$this->baseUrl}/{$id}", $query);
         
-        return $this->request->do('DELETE', $url, [], $this->client->session()->headers);
+        return $this->client->request('DELETE', $url, [], $this->client->session()->headers);
     }
     
     /**

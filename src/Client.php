@@ -22,6 +22,8 @@ class Client
 
     private $apiWaitTime = 0;
 
+    private $apiRequestCount = 0;
+
     public function __construct(string $endpoint)
     {
         $this->session  = new Session();
@@ -41,13 +43,19 @@ class Client
         return $this->apiWaitTime;
     }
 
+    public function getApiRequestCount()
+    {
+        return $this->apiRequestCount;
+    }
+
     public function request(string $method, string $path, array $data = [], array $headers = []): array
     {
         $url = "{$this->endpoint}/$path";
         $this->request = new Request();
         $start = microtime(true);
-        $response = $this->request->do($method, $url, $data, $headers);
+        $response = $this->request->do($method, $url, $data, array_merge($headers, $this->session->headers));
         $this->apiWaitTime+= microtime(true) - $start;
+        $this->apiRequestCount++;
 
         return $response;
     }
@@ -65,7 +73,7 @@ class Client
      */
     public function createPath($path)
     {
-        $path = new Path($this, "{$this->endpoint}/{$path}");
+        $path = new Path($this, "{$path}");
 
         return $path;
     }
